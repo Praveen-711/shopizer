@@ -3,12 +3,12 @@ pipeline {
 
    triggers { pollSCM('* * * * *') }
     stages {
-        
+
         stage('vcs') {
 
             steps {
-                git url: 'https://github.com/Praveen-711/shopizer.git' 
-                   
+                git url: 'https://github.com/Praveen-711/shopizer.git'
+
             }
          }
        stage('build'){
@@ -16,10 +16,17 @@ pipeline {
              sh 'mvn package'
             }
           }
-       }
-     post {
-        always {
-            archiveArtifacts artifacts: '/**/*.jar'
-            junit '**/surefire-reports/*.xml'}
+
+     stage('artifacts'){
+   steps{
+
+        archiveArtifacts artifacts: '**/target/*.jar'
+}
+}
+   stage('junits')
+{
+steps{
+           junit '**/surefire-reports/*.xml'}
            }
+} 
 }
