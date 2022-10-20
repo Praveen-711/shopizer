@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+   triggers { pollSCM(* * * * *) }
+    stages {
+        
+        stage('vcs') {
+
+            steps {
+                git url: 'https://github.com/Praveen-711/shopizer.git', 
+                   
+            }
+         }
+       stage('build'){
+        steps{
+             sh 'mvn package'
+            }
+          }
+       }
+     post {
+        always {
+            archiveArtifacts artifacts: '/**/*.jar', fingerprint: true
+            junit '**/surefire-reports/*.xml'}
+           }
