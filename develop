@@ -7,7 +7,7 @@ pipeline {
         stage('vcs') {
 
             steps {
-                git url: 'https://github.com/Praveen-711/shopizer.git', 
+                git url: 'https://github.com/Praveen-711/shopizer.git' 
                    
             }
          }
@@ -19,6 +19,7 @@ pipeline {
        }
      post {
         always {
-            archiveArtifacts artifacts: '/**/*.jar', fingerprint: true
+            archiveArtifacts artifacts: '/**/*.jar',
             junit '**/surefire-reports/*.xml'}
            }
+}
